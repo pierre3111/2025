@@ -1,0 +1,84 @@
+/* Basic page styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: skyblue;
+    margin: 0;
+    padding: 20px;
+}
+
+h1, h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Gallery Grid Container - 4 columns */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 items per row */
+    gap: 15px; /* space between items */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Each photo/video container */
+.media-container {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden;
+}
+
+/* All images and videos take the same size */
+.media-container img,
+.media-container video {
+    width: 100%;
+    height: 200px;
+    object-fit: cover; /* This ensures the content fits inside without distortion */
+    background-color: #000; /* Optional - background for videos */
+}
+
+/* Media Title */
+.media-container h3 {
+    font-size: 14px;
+    color: #555;
+    margin: 8px 0;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+/* Responsive grid for smaller screens */
+@media (max-width: 1024px) {
+    .gallery-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 items per row on medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 items per row on small screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-grid {
+        grid-template-columns: repeat(1, 1fr); /* 1 item per row on mobile */
+    }
+}

@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{% static 'media_app/dashboard.css' %}">
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+
+    <section>
+        <h2>Upload Media</h2>
+        <a class="action-link" href="{% url 'upload_media' %}">Upload New Media</a>
+    </section>
+
+    <section>
+        <h2>Uploaded Media</h2>
+        <ul>
+            {% for item in media %}
+                <li>
+                    <span>{{ item.title }} - <a href="{{ item.file.url }}" target="_blank">View</a></span>
+                    <form method="post" action="{% url 'delete_media' item.pk %}">
+                        {% csrf_token %}
+                        <button type="submit">Delete</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section>
+        <h2>Collected Emails</h2>
+        <div class="email-list">
+            <ul>
+                {% for email in emails %}
+                    <li>{{ email.email }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+</body>
+</html>

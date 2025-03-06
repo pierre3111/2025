@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Media Gallery</title>
+    <link rel="stylesheet" href="{% static 'media_app/styles.css' %}">
+    <script src="{% static 'media_app/scripts.js' %}"></script>
+</head>
+<body>
+    <h1>Welcome to the Media Gallery</h1>
+
+    {% if not request.session.email_submitted %}
+        <p>Please <a href="{% url 'collect_email' %}">submit your email</a> to access the media.</p>
+    {% else %}
+        <h2>Available Photos and Videos</h2>
+
+        <div class="gallery-grid">
+            {% for item in media %}
+                <div class="media-container">
+                    <h3>{{ item.title }}</h3>
+
+                    {% with item.file.url|lower as file_url %}
+                        {% if file_url|slice:"-4:" == '.jpg' or file_url|slice:"-5:" == '.jpeg' or file_url|slice:"-4:" == '.png' or file_url|slice:"-4:" == '.gif' %}
+                            <img src="{{ item.file.url }}" alt="{{ item.title }}">
+                        {% elif file_url|slice:"-4:" == '.mp4' or file_url|slice:"-5:" == '.webm' or file_url|slice:"-4:" == '.mov' %}
+                            <video controls>
+                                <source src="{{ item.file.url }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        {% else %}
+                            <p><a href="{{ item.file.url }}" target="_blank">Download File</a></p>
+                        {% endif %}
+                    {% endwith %}
+                </div>
+            {% empty %}
+                <p style="grid-column: span 4; text-align: center;">No media has been uploaded yet.</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+</body>
+</html>

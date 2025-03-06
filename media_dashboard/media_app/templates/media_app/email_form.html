@@ -1,0 +1,16 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Submit Email</title>
+    <link rel="stylesheet" href="{% static 'media_app/email_form.css' %}">
+</head>
+<body>
+    <h1>Submit Your Email to Access the Media Gallery</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
