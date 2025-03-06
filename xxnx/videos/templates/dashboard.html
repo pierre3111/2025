@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+<ul>
+    {% for media in media %}
+        <li>{{ media.title }} - {{ media.media_type }}
+            <a href="{% url 'delete_media' media.pk %}">Delete</a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
