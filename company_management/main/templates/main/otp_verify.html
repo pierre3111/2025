@@ -1,0 +1,9 @@
+{% load static %}
+<h1>Verify OTP</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="number" name="otp" placeholder="Enter OTP" required>
+
+    <button type="submit">Verify</button>
+</form>
