@@ -1,0 +1,81 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="https://bootswatch.com/5/quartz/bootstrap.min.css">
+</head>
+<body>
+    <br>
+    <div class="container" style="width: 400px;">
+        <h1>Register</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="id_first_name" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="id_first_name" name="first_name" placeholder="Enter your first name" required>
+            </div>
+            <div class="mb-3">
+                <label for="id_last_name" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="id_last_name" name="last_name" placeholder="Enter your last name" required>
+            </div>
+            <div class="mb-3">
+                <label for="id_email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="id_email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="mb-3">
+                <label for="id_password" class="form-label">Password</label>
+                <div style="position: relative;">
+                    <input type="password" class="form-control" id="id_password" name="password" placeholder="Enter your password" required>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" id="togglePassword"
+                        style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">
+                        Show
+                    </button>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="id_confirm_password" class="form-label">Confirm Password</label>
+                <div style="position: relative;">
+                    <input type="password" class="form-control" id="id_confirm_password" name="confirm_password" placeholder="Re-enter your password" required>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" id="toggleConfirmPassword"
+                        style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">
+                        Show
+                    </button>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+            <p class="mt-2">If you already have an account, <a href="{% url 'login' %}">Login</a>.</p>
+        </form>
+    </div>
+    <br>
+
+    <script>
+        // Toggle Password Visibility for Password Field
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            const passwordField = document.getElementById('id_password');
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                this.textContent = "Hide";
+            } else {
+                passwordField.type = "password";
+                this.textContent = "Show";
+            }
+        });
+
+        // Toggle Password Visibility for Confirm Password Field
+        document.getElementById('toggleConfirmPassword').addEventListener('click', function () {
+            const confirmPasswordField = document.getElementById('id_confirm_password');
+            if (confirmPasswordField.type === "password") {
+                confirmPasswordField.type = "text";
+                this.textContent = "Hide";
+            } else {
+                confirmPasswordField.type = "password";
+                this.textContent = "Show";
+            }
+        });
+    </script>
+</body>
+</html>
