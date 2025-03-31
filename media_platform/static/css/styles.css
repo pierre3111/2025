@@ -1,0 +1,58 @@
+/* Global Styles */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer {
+    margin-top: auto;
+}
+
+/* Media Content */
+.media-content {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.media-content img,
+.media-content video {
+    max-height: 70vh;
+    width: auto;
+    max-width: 100%;
+}
+
+/* Card Styling */
+.card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #f8f9fa;
+}
+
+/* Make all table headers sticky */
+.table-responsive {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 1;
+}
+
+/* Jumbotron styling */
+.jumbotron {
+    background-color: #f8f9fa;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .media-content img,
+    .media-content video {
+        max-height: 50vh;
+    }
+}

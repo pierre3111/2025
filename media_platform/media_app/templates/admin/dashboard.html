@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard - Media Platform{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Admin Dashboard</h1>
+            <a href="{% url 'create_media' %}" class="btn btn-primary">Upload New Media</a>
+        </div>
+        
+        {% if media_items %}
+            <div class="card">
+                <div class="card-header">
+                    <h5>Your Uploaded Media</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Type</th>
+                                    <th>Upload Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in media_items %}
+                                <tr>
+                                    <td>{{ item.title }}</td>
+                                    <td>{{ item.get_media_type_display }}</td>
+                                    <td>{{ item.uploaded_at|date:"M d, Y" }}</td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a href="{% url 'media_detail' item.id %}" class="btn btn-sm btn-info">View</a>
+                                            <a href="{% url 'update_media' item.id %}" class="btn btn-sm btn-warning">Edit</a>
+                                            <a href="{% url 'delete_media' item.id %}" class="btn btn-sm btn-danger">Delete</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                You haven't uploaded any media yet. <a href="{% url 'create_media' %}">Upload some now!</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

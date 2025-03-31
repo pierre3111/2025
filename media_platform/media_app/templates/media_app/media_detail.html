@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ media_item.title }} - Media Platform{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h2>{{ media_item.title }}</h2>
+                <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a>
+            </div>
+            <div class="card-body">
+                <div class="media-content text-center mb-4">
+                    {% if media_item.is_image %}
+                    <img src="{{ media_item.file.url }}" alt="{{ media_item.title }}" class="img-fluid rounded">
+                    {% elif media_item.is_video %}
+                    <video controls class="img-fluid rounded">
+                        <source src="{{ media_item.file.url }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    {% endif %}
+                </div>
+                
+                {% if media_item.description %}
+                <div class="mt-4">
+                    <h4>Description</h4>
+                    <p>{{ media_item.description }}</p>
+                </div>
+                {% endif %}
+                
+                <div class="mt-4">
+                    <p class="text-muted">
+                        <small>Uploaded on {{ media_item.uploaded_at|date:"F d, Y" }}</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}User Emails - Media Platform{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>User Emails</h1>
+            <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+        </div>
+        
+        {% if user_emails %}
+            <div class="card">
+                <div class="card-header">
+                    <h5>All User Emails ({{ user_emails.count }})</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Email</th>
+                                    <th>First Submitted</th>
+                                    <th>Last Accessed</th>
+                                    <th>Access Count</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user_email in user_emails %}
+                                <tr>
+                                    <td>{{ user_email.email }}</td>
+                                    <td>{{ user_email.submitted_at|date:"M d, Y H:i" }}</td>
+                                    <td>{{ user_email.last_accessed|date:"M d, Y H:i" }}</td>
+                                    <td>{{ user_email.access_count }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                No user emails have been submitted yet.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

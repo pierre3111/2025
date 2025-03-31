@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Media Platform{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="jumbotron bg-light p-5 rounded">
+            <h1 class="display-4">Welcome to Media Platform</h1>
+            <p class="lead">Browse our collection of photos and videos. Simply provide your email to view content.</p>
+            {% if user.is_authenticated and user.is_staff %}
+            <hr class="my-4">
+            <p>As an admin, you can upload and manage media content.</p>
+            <a class="btn btn-primary btn-lg" href="{% url 'admin_dashboard' %}" role="button">Go to Dashboard</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <h2>Latest Media</h2>
+    </div>
+</div>
+
+{% if media_items %}
+<div class="row row-cols-1 row-cols-md-3 g-4 mt-2">
+    {% for item in media_items %}
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-header">
+                {% if item.is_image %}
+                <span class="badge bg-primary">Image</span>
+                {% elif item.is_video %}
+                <span class="badge bg-success">Video</span>
+                {% endif %}
+            </div>
+            
+            <div class="card-body">
+                <h5 class="card-title">{{ item.title }}</h5>
+                <p class="card-text">{{ item.description|truncatewords:20 }}</p>
+                <p class="card-text"><small class="text-muted">Uploaded on {{ item.uploaded_at|date:"M d, Y" }}</small></p>
+            </div>
+            
+            <div class="card-footer">
+                <a href="{% url 'media_detail' item.id %}" class="btn btn-primary">View</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="alert alert-info">
+            No media items available yet.
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
